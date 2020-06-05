@@ -10,7 +10,7 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
 
-  .post('prescription/add', form.single('photo'), (req, res)=>{
+  .post('/prescription/add', form.single('photo'), (req, res)=>{
     console.log(req.file);
     res.json({message:"ok"});
   })
