@@ -12,12 +12,15 @@ express()
 
   .post('/prescription/add', form.single('photo'), (req, res)=>{
     console.log(req.file);
+    console.log(req.body.address);
+    console.log(req.body.contact);
     res.json({message:"ok"});
   })
 
   .get("/prescription", (req, res)=>{
     res.send("Send reposnse");
   })
+  
 
 
 
