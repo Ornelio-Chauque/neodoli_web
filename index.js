@@ -23,7 +23,7 @@ express()
   })
 
   .get("/prescription", (req, res)=>{
-    let Json='[{"date":"23, junho, 2020", "id":"ducbdu859dnnx"}, {"date":"10, Maio, 2020", "id":"jd87ennd4ff"},{"date":"25, junho, 2020", "id":"7shydjkd90984"}]';
+    let Json=[{"date":"23, junho, 2020", "id":"ducbdu859dnnx"}, {"date":"10, Maio, 2020", "id":"jd87ennd4ff"},{"date":"25, junho, 2020", "id":"7shydjkd90984"}];
     res.status(200).json(Json);
   })
   .get("/prescription/{id}/respose", (req, res)=>{
