@@ -30,7 +30,7 @@ express()
   })
 
   .get("/prescription/:id/response", (req, res)=>{
-    let jSon=[{"pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"pharmacy":"Maria Luisa", "Address":"Macuti, Beira"}, {"pharmacy":"Chingussura", "Address":"Maquinino, Beira"}]
+    let jSon=[{"pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"pharmacy":"Maria Luisa", "address":"Macuti, Beira"}, {"pharmacy":"Chingussura", "address":"Maquinino, Beira"}, {"pharmacy":"Macurungo", "address":"Macurungo, Beira"}, {"pharmacy":"Pontagea", "address":"Pontagea, Beira"}]
     res.status(200).json(jSon);
     
   })
