@@ -17,19 +17,29 @@ express()
     res.json({message:"ok"});
   })
 
-  .get("/prescription/{id}", (req, res)=>{
-    console.log('Prescription request id '+req.params.id);
-    res.send("Send reposnse");
-  })
-
   .get("/prescription", (req, res)=>{
     let Json=[{"date":"23, junho, 2020", "id":"ducbdu859dnnx"}, {"date":"10, Maio, 2020", "id":"jd87ennd4ff"},{"date":"25, junho, 2020", "id":"7shydjkd90984"}];
     res.status(200).json(Json);
   })
-  .get("/prescription/{id}/respose", (req, res)=>{
 
-    console.log('Prescription response request id '+req.params.id);
+  .get("/prescription/:id", (req, res)=>{
+
+    let jSon={"address": "1810, Beira, Mozambique", "userContact":"842519199", "photoUrl":"/public/upload/photo.jpg"}
+    console.log('Prescription request id '+req.params.id);
+    res.status(200).json(jSon);
+  })
+
+  .get("/prescription/:id/response", (req, res)=>{
+    let jSon=[{"pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"pharmacy":"Maria Luisa", "Address":"Macuti, Beira"}, {"pharmacy":"Chingussura", "Address":"Maquinino, Beira"}]
+    res.status(200).json(jSon);
     
+  })
+
+  .get("/prescription/:id/response/:id", (req, res)=> {
+
+    let jSon={"pharmacy": "Cristal", "address": "Maquino, Beira", "medicine":[{"name":"Paracetamol", "available": true, "from": "Portugal"}, {"name":"Cloroquina", "available": true, "from": "India"}, {"name":"Antigripe", "available": false, "from": "Portugal"}]};
+    res.status(200).json(jSon);
+
   })
   
 
