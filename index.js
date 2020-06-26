@@ -30,14 +30,14 @@ express()
   })
 
   .get("/prescription/:id/response", (req, res)=>{
-    let jSon=[{"pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"pharmacy":"Maria Luisa", "address":"Macuti, Beira"}, {"pharmacy":"Chingussura", "address":"Maquinino, Beira"}, {"pharmacy":"Macurungo", "address":"Macurungo, Beira"}, {"pharmacy":"Pontagea", "address":"Pontagea, Beira"}]
+    let jSon=[{"id":"duyuyshghs","pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"id":"duyuyshghs","pharmacy":"Maria Luisa", "address":"Macuti, Beira"}, {"id":"duyuyshghs","pharmacy":"Chingussura", "address":"Maquinino, Beira"}, {"id":"duyuyshghs","pharmacy":"Macurungo", "address":"Macurungo, Beira"}, {"id":"duyuyshghs","pharmacy":"Pontagea", "address":"Pontagea, Beira"}]
     res.status(200).json(jSon);
     
   })
 
   .get("/prescription/:id/response/:id", (req, res)=> {
 
-    let jSon={"pharmacy": "Cristal", "address": "Maquino, Beira", "medicine":[{"name":"Paracetamol", "available": true, "from": "Portugal"}, {"name":"Cloroquina", "available": true, "from": "India"}, {"name":"Antigripe", "available": false, "from": "Portugal"}]};
+    let jSon={"id":"duyuyshghs","pharmacy": "Cristal", "address": "Maquino, Beira", "medicines":[{"name":"Paracetamol", "available": true, "from": "Portugal"}, {"name":"Cloroquina", "available": true, "from": "India"}, {"name":"Antigripe", "available": false, "from": "Portugal"}]};
     res.status(200).json(jSon);
 
   })
