@@ -1,6 +1,6 @@
 const express = require('express');
 const crypto= require("crypto");
-const dotEnv= require("dotenv").config();
+//const dotEnv= require("dotenv").config();
 const  multer= require('multer');
 let form= multer({dest:'public/'});
 const path = require('path');
