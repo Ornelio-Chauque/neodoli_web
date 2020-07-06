@@ -18,7 +18,7 @@ express()
 
   .post('/api/v1/prescription/', form.single('photo'), (req, res)=>{
   
-    db.insertPrescription(req, res, prescriptionModel);
+    db.insertPrescription(req, res);
 
   })
 

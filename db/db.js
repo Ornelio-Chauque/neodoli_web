@@ -2,7 +2,7 @@ const pgp= require("pg-promise")();
 const db= pgp(process.env.DATABASE_URL);
 const crypto= require("crypto");
 
-let insertPrescription=function(req, res, prescriptionModel){
+let insertPrescription=function(req, res){
     let randomCode= crypto.randomBytes(10).toString('hex');
     let prescriptionModel={name: req.body.name, address: req.body.address, contact:req.body.contact, photoUrl: req.file.path, code:randomCode};
     console.log(req.file);
