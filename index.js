@@ -7,7 +7,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const db= require("./db/db");
 
-const prescriptionRoute=express.Router();
+//const prescriptionRoute=express.Router();
 
 
 
@@ -40,7 +40,7 @@ express()
     db.getPrescription(req, res, req.params.prescriptionId);
   })
 
-  .get("/prescription/:prescriptionId/response", (req, res)=>{
+  .get("/api/v1/prescription/:prescriptionId/response", (req, res)=>{
     //let jSon=[{"id":"duyuyshghs","pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"id":"duyuyshghs","pharmacy":"Maria Luisa", "address":"Macuti, Beira"}, {"id":"duyuyshghs","pharmacy":"Chingussura", "address":"Maquinino, Beira"}, {"id":"duyuyshghs","pharmacy":"Macurungo", "address":"Macurungo, Beira"}, {"id":"duyuyshghs","pharmacy":"Pontagea", "address":"Pontagea, Beira"}]
     db.getPrescriptionResponses(req, res, req.params.prescriptionId);
     //res.status(200).json(jSon);
