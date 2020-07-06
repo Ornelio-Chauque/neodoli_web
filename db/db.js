@@ -4,12 +4,13 @@ const crypto= require("crypto");
 
 let insertPrescription=function(req, res){
     let randomCode= crypto.randomBytes(10).toString('hex');
-    let prescriptionModel={name: req.body.name, address: req.body.address, contact:req.body.contact, photoUrl: req.file.path, code:randomCode};
+    let prescriptionData=[req.body.name, req.body.address, req.body.contact, req.file.path, randomCode];
     console.log(req.file);
     console.log(req.body.address);
     console.log(req.body.contact);
     console.log(prescriptionModel);
-    db.none('INSERT INTO prescriptions(name, address, contact, "photoUrl", code) VALUES($(name), $(address), $(contact), $(photoUrl),$(code))?', prescriptionModel)
+
+    db.none('INSERT INTO prescriptions(name, address, contact, "photoUrl", code) VALUES($1, $2, $3, $4, $5)', prescriptionData)
     .then(()=>{
         res.status(200).json({message:"ok"});
     })
