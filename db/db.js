@@ -8,7 +8,7 @@ let insertPrescription=function(req, res){
     console.log(req.file);
     console.log(req.body.address);
     console.log(req.body.contact);
-    console.log(prescriptionModel);
+    console.log(prescriptionData);
 
     db.none('INSERT INTO prescriptions(name, address, contact, "photoUrl", code) VALUES($1, $2, $3, $4, $5)', prescriptionData)
     .then(()=>{
