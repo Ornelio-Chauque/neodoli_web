@@ -20,11 +20,12 @@ express()
   .post('/api/v1/prescription/', form.single('photo'), (req, res)=>{
     let randomCode= crypto.randomBytes(10).toString('hex');
     let prescriptionModel={name: req.body.name, address: req.body.address, contact:req.body.contact, photoUrl: req.file.path, code:randomCode};
-    db.insertPrescription(prescriptionModel);
     console.log(req.file);
     console.log(req.body.address);
     console.log(req.body.contact);
-    res.json({message:"ok"});
+    console.log(prescriptionModel);
+    db.insertPrescription(prescriptionModel);
+
   })
 
   .get("/api/v1/prescription", (req, res)=>{

@@ -4,10 +4,10 @@ const db= pgp(process.env.DATABASE_URL);
 let insertPrescription=function(prescriptionModel){
     db.none("INSERT INTO prescriptions(name, address, contact, photoUrl, code) VALUES($(name), $(address), $(contact), $(photoUrl),$(code))", prescriptionModel)
     .then(()=>{
-        console.log("done");
+        res.status(200).json({message:"ok"});
     })
     .catch((error)=>{
-        console.log(error);
+        res.status(200).json(error);
     });
 }
 
