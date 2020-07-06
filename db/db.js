@@ -1,7 +1,7 @@
 const pgp= require("pg-promise")();
 const db= pgp(process.env.DATABASE_URL);
 
-let insertPrescription=function(PrescriptionModel){
+let insertPrescription=function(prescriptionModel){
     db.none("INSERT INTO prescriptions(name, address, contact, photoUrl, code) VALUES($(name), $(address), $(contact), $(photoUrl),$(code))", prescriptionModel)
     .then(()=>{
         console.log("done");
