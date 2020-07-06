@@ -1,5 +1,4 @@
 const express = require('express');
-const crypto= require("crypto");
 //const dotEnv= require("dotenv").config();
 const  multer= require('multer');
 let form= multer({dest:'public/'});
@@ -18,13 +17,8 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
 
   .post('/api/v1/prescription/', form.single('photo'), (req, res)=>{
-    let randomCode= crypto.randomBytes(10).toString('hex');
-    let prescriptionModel={name: req.body.name, address: req.body.address, contact:req.body.contact, photoUrl: req.file.path, code:randomCode};
-    console.log(req.file);
-    console.log(req.body.address);
-    console.log(req.body.contact);
-    console.log(prescriptionModel);
-    db.insertPrescription(prescriptionModel);
+  
+    db.insertPrescription(req, res, prescriptionModel);
 
   })
 

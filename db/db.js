@@ -1,8 +1,15 @@
 const pgp= require("pg-promise")();
 const db= pgp(process.env.DATABASE_URL);
+const crypto= require("crypto");
 
-let insertPrescription=function(prescriptionModel){
-    db.none("INSERT INTO prescriptions(name, address, contact, photoUrl, code) VALUES($(name), $(address), $(contact), $(photoUrl),$(code))", prescriptionModel)
+let insertPrescription=function(req, res, prescriptionModel){
+    let randomCode= crypto.randomBytes(10).toString('hex');
+    let prescriptionModel={name: req.body.name, address: req.body.address, contact:req.body.contact, photoUrl: req.file.path, code:randomCode};
+    console.log(req.file);
+    console.log(req.body.address);
+    console.log(req.body.contact);
+    console.log(prescriptionModel);
+    db.none('INSERT INTO prescriptions(name, address, contact, "photoUrl", code) VALUES($(name), $(address), $(contact), $(photoUrl),$(code))?', prescriptionModel)
     .then(()=>{
         res.status(200).json({message:"ok"});
     })
