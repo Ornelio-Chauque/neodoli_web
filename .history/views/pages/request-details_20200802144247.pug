@@ -1,8 +1,12 @@
 extends ../partials/layout
 
 block content
-       
-    div(class="container")
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body(class="container")
         h3 Detalhes da requisição
         ul
             li=request.name

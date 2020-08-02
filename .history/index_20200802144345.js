@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParse= require('body-parser');
 // When making a push to the server for production, comment the line that import the dotEnv library
-//const dotEnv= require("dotenv").config();
+const dotEnv= require("dotenv").config();
 const  multer= require('multer');
 const path = require('path');
 let form= multer({dest:path.resolve(__dirname, 'public')});
