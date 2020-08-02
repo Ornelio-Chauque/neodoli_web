@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body
+        include ../partials/nav
+
+        .container
+            form(action="/login", method="post")
+            
+                    div(class="form-group")
+                        label(for="textName") Nome do user
+                        input(type="text", placeholder="Ex: Paracetamol" name="name" id="textName" class=" form-control")
+                
+                    div(class="form-group")
+                        label(for="textName") Senha
+                        input(type="text", placeholder="Ex: Português" name="madeIn" id="textName" class=" form-control")
+                    
+                    input(type="submit", name="send", value="Entrar", class="btn btn-primary")
+
+        

@@ -1,0 +1,32 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body( class="container")
+        br
+        br
+        h3 Lista de pedidos
+        p=data
+        br
+        table(class="table table-striped")
+
+            thead
+                tr
+                    th index
+                    th name
+                    th address
+                    th contact
+                    th Photo
+                    th Acção
+            tbody
+                 each prescription, index in data
+                    tr
+                        th=index
+                        th=prescription.name
+                        td=prescription.address
+                        td=prescription.contact
+                        td
+                            img(src=prescription.photoUrl)
+                        td 
+                            a( class="btn btn-primary" width="40" height="40" href="/dashboard/addpharmacy") Detalhes

@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body
+        h4=data
+        h3 Dados da Farmácia
+        p Nome: #{data.pharmacy}
+        p Endereço: #{data.address}
+        P Total a Pagar: #{data.totalAmount}
+
+        p(class="caption") Inserir informação de disponibilidade dos medicamentos
+        a(class="btn btn-primary") Adicionar

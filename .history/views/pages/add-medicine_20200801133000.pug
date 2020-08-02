@@ -1,0 +1,60 @@
+extends ../partials/layout 
+
+block content      
+    div(class="container")
+        br
+        br
+        if response
+            h3 Dados da Farmácia
+            table(class="table table-striped")
+                thead
+                    tr
+                        th nome
+                        th endereço 
+                        th Total a pagar
+                tbody
+                    tr
+                        td=response.pharmacy
+                        td=response.address
+                        td=response.totalAmount
+
+
+         
+            a(class="btn btn-primary") Terminar Pedido
+            br
+            br
+
+            h3 Itens Inseridos
+
+            table(class="table table-striped")
+                thead
+                    tr
+                        th Nome
+                        th fabrico 
+                        th Desponiblidade
+                tbody
+                    if response.medicines
+                        each medicine in response.medicines
+                            tr
+                                td=medicine.name
+                                td=medicine.madeIn
+                                if medicine.available==='y'
+                                    td Desponível
+                                else
+                                    td Não desponível
+                    else 
+                        p Nenhum dado Inserido
+        
+
+
+
+                       
+
+
+            button.btn.btn-primary(type='button' data-toggle='modal' data-target='#staticBackdrop') Adicionar item
+
+        
+            include ../partials/add-medicines-modal
+        else
+            p no data
+    

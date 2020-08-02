@@ -1,0 +1,33 @@
+doctype html
+html
+    head
+        include ../partials/header
+        title DashBoard
+        
+    body( class="container")
+        br
+        br
+        h3 Lista de pedidos
+        p=requests
+        br
+        table(class="table table-striped")
+
+            thead
+                tr
+                    th index
+                    th name
+                    th address
+                    th contact
+                    th Photo
+                    th Acção
+            tbody
+                each request, index in requests
+                    tr
+                        th=index
+                        th=request.name
+                        td=request.address
+                        td=request.contact
+                        td
+                            img(src=request.photoUrl)
+                        td 
+                            a( class="btn btn-primary" width="40" height="40" href="/dashboard/addpharmacy") Detalhes

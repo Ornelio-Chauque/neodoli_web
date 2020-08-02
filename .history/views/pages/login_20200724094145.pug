@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body
+        include ../partials/nav
+        br
+        br
+        br
+        br
+        .container
+            form(action="/login", method="post")
+            
+                    div(class="form-group")
+                        label(for="textName") Nome do user
+                        input(type="text", placeholder="Ex: Neodoli" name="username" id="textName" class=" form-control")
+                
+                    div(class="form-group")
+                        label(for="textName") Senha
+                        input(type="password",  name="password" id="textName" class=" form-control")
+                    
+                    input(type="submit", name="send", value="Entrar", class="btn btn-primary")
+        br
+        br
+        br
+        br
+        br
+        br
+        br
+        br
+
+        
+        include ../partials/footer

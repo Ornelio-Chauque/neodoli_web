@@ -1,0 +1,30 @@
+
+html
+  head
+    include ../partials/header.pug
+  body(class="container")
+    br 
+    br 
+    h3 Adicionar dados da Farmácia
+    br 
+    br 
+    br
+    div
+      
+      form(action="/dashboard/"+prescriptionId+"/response", method="post")
+       
+        div(class="form-group")
+          label(for="textName") Nome da Farmacia
+          input(type="text", placeholder="Ex: Farmácia Neodoli" name="name" id="textName" class=" form-control")
+       
+        div(class="form-group")
+          label(for="textName") Endereço da Farmácia
+          input(type="text", placeholder="Ex: Macuti" name="address" id="textName" class=" form-control")
+
+
+        div(class="form-group")
+          label(for="textName") Total a pagar
+          input(type="text", placeholder="Ex: Macuti" name="amount" id="textName" class=" form-control")
+
+      
+        input(type="submit", name="send", value="Inserir valor", class="btn btn-primary")

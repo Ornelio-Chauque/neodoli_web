@@ -1,0 +1,15 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body(class="container")
+        h1 this is the request details
+        ul
+            li=request.name
+            li=request.address
+            li=request.contact
+            li
+                img(src=""+request.photoUrl)
+        
+        a(class=" btn btn-primary" href="#") Responder

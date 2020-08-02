@@ -1,0 +1,12 @@
+
+html
+  head
+    include ../partials/header.pug
+  body
+    div(class="container")
+      form(action="#", method="post")
+        div(class="form-group")
+          label(for="textName") Nome da Farmacia
+          input(type="text", placeholder="This is text" name="textName" id="textName" class=" form-control")
+      
+        input(type="submit", name="send", value="Inserir valor", class="btn btn-primary")

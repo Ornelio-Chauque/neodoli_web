@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body
+        include ../partials/nav
+
+        .container
+            form(action="/login", method="post")
+            
+                    div(class="form-group")
+                        label(for="textName") Nome da medicamento a adicionar
+                        input(type="text", placeholder="Ex: Paracetamol" name="name" id="textName" class=" form-control")
+                
+                    div(class="form-group")
+                        label(for="textName") Fabrico
+                        input(type="text", placeholder="Ex: Português" name="madeIn" id="textName" class=" form-control")
+                    
+                    input(type="submit", name="send", value="Inserir valor", class="btn btn-primary")
+
+        

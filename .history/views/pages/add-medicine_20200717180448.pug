@@ -1,0 +1,40 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body
+        h4=data
+        h3 Dados da Farmácia
+        p Nome: #{data.pharmacy}
+        p Endereço: #{data.address}
+        P Total a Pagar: #{data.totalAmount}
+
+        p(class="caption") Inserir informação de disponibilidade dos medicamentos
+        a(class="btn btn-primary") Adicionar-
+
+        button.btn.btn-primary(type='button' data-toggle='modal' data-target='#staticBackdrop')
+       | Launch static backdrop modal
+        
+        #staticBackdrop.modal.fade(data-backdrop='static' data-keyboard='false' tabindex='-1' role='dialog' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+            .modal-header
+                h5#staticBackdropLabel.modal-title Modal title
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                span(aria-hidden='true') &times;
+            .modal-body
+                | form(action=&quot;/dashboard/&quot;+prescriptionId+&quot;/response&quot;, method=&quot;post&quot;)
+                | div(class=&quot;form-group&quot;)
+                | label(for=&quot;textName&quot;) Nome da Farmacia
+                | input(type=&quot;text&quot;, placeholder=&quot;Ex: Farm&aacute;cia Neodoli&quot; name=&quot;name&quot; id=&quot;textName&quot; class=&quot; form-control&quot;)
+                | div(class=&quot;form-group&quot;)
+                | label(for=&quot;textName&quot;) Endere&ccedil;o da Farm&aacute;cia
+                | input(type=&quot;text&quot;, placeholder=&quot;Ex: Macuti&quot; name=&quot;address&quot; id=&quot;textName&quot; class=&quot; form-control&quot;)
+                | div(class=&quot;form-group&quot;)
+                | label(for=&quot;textName&quot;) Total a pagar
+                | input(type=&quot;text&quot;, placeholder=&quot;Ex: Macuti&quot; name=&quot;amount&quot; id=&quot;textName&quot; class=&quot; form-control&quot;)
+                | input(type=&quot;submit&quot;, name=&quot;send&quot;, value=&quot;Inserir valor&quot;, class=&quot;btn btn-primary&quot;)
+            .modal-footer
+                button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                button.btn.btn-primary(type='button') Understood

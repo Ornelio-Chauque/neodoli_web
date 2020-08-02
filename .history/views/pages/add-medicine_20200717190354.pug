@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body
+        if data
+            h4=data
+            h3 Dados da Farmácia
+            p Nome: #{data.pharmacy}
+            p Endereço: #{data.address}
+            P Total a Pagar: #{data.totalAmount}
+
+            p(class="caption") Inserir informação de disponibilidade dos medicamentos
+            a(class="btn btn-primary") Fechar Pedido
+
+            button.btn.btn-primary(type='button' data-toggle='modal' data-target='#staticBackdrop') Adicionar item
+
+            include ../partials/add-medicines-modal
+        else
+            p no data
+    

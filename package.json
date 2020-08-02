@@ -12,12 +12,19 @@
     "migrations": "./node_modules/.bin/node-pg-migrate"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "express-session": "^1.17.1",
     "multer": "^1.4.2",
     "node-pg-migrate": "^5.2.0",
-    "nodemon": "^2.0.2",
-    "pg-promise": "^10.5.7"
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pg-promise": "^10.5.7",
+    "pug": "^3.0.0"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

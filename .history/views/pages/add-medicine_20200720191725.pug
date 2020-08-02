@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        include ../partials/header
+        
+    body(class="container")
+        br
+        br
+        if response
+            h3 Dados da Farmácia
+            table(class="table table-striped")
+                thead
+                    tr
+                        th nome
+                        th endereço 
+                        th Total a pagar
+                tbody
+                    tr
+                        td=response.pharmacy
+                        td=response.address
+                        td=response.totalAmount
+
+
+         
+            a(class="btn btn-primary") Fechar Pedido
+            br
+            br
+
+            button.btn.btn-primary(type='button' data-toggle='modal' data-target='#staticBackdrop') Adicionar item
+
+            include ../partials/add-medicines-modal
+        else
+            p no data
+    

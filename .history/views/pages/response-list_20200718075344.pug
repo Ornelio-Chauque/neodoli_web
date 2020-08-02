@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        include ../partials/header
+    
+    body(class="container")
+        br
+        br
+        h3 Lista de respostas
+        br
+        br
+
+        table(class="table")
+            thead
+                tr 
+                    th Farmácias
+                    th Endereço
+                    th Total a pagar
+            tbody
+                if responses
+                    each response, index in responses
+                        tr
+                            td=response.name
+                            td=response.address
+                            td= response.totaAmount
+                            
+            p Nenhum dado encontrado

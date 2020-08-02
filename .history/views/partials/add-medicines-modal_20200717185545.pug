@@ -1,0 +1,36 @@
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         form(action="/dashboard/"+data.prescriptionId+"/response/"+data.id, method="post")
+       
+            div(class="form-group")
+            label(for="textName") Nome da medicamento
+            input(type="text", placeholder="Ex: Paracetamol" name="name" id="textName" class=" form-control")
+        
+            div(class="form-group")
+            label(for="textName") Fabrico
+            input(type="text", placeholder="Ex: Português" name="madeIn" id="textName" class=" form-control")
+
+            div(class="form-group")
+            label(for="textName") desnível
+            select(name="available")
+              option(values="n") Não desponível
+              option(value="y") Desponível
+              
+
+            input(type="submit", name="send", value="Inserir valor", class="btn btn-primary")
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
