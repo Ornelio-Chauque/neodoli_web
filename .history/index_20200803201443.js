@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParse= require('body-parser');
 // When making a push to the server for production, comment the line that import the dotEnv library
-//const dotEnv= require("dotenv").config();
+const dotEnv= require("dotenv").config();
 const  multer= require('multer');
 const path = require('path');
 let form= multer({dest:path.resolve(__dirname, 'public')});
@@ -91,22 +91,10 @@ express()
   })
 
   .get('/dashboard', ensureLogin.ensureLoggedIn('/login'),(req, res)=>{
-    db.db.any("SELECT * FROM  prescriptions WHERE status=0")
-    .then((data)=>{
-      console.log(data);
-      res.render('pages/dashboard', {requests:data, title:"Dashboard", user: req.user});
-    })
-    .catch( error=>{
-      res.render('pages/error')
-    });
-    
-  })
-
-  .get('/dashboard/all', ensureLogin.ensureLoggedIn('/login'),(req, res)=>{
     db.db.any("SELECT * FROM  prescriptions")
     .then((data)=>{
       console.log(data);
-      res.render('pages/dashboard-all', {requests:data, title:"Dashboard", user: req.user});
+      res.render('pages/dashboard', {requests:data, title:"Dashboard", user: req.user});
     })
     .catch( error=>{
       res.render('pages/error')
