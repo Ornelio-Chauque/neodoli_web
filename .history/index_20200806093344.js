@@ -4,7 +4,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 // When making a push to the server for production, comment the line that import the dotEnv library
 
-//const dotEnv= require("dotenv").config();
+const dotEnv= require("dotenv").config();
 
 const  multer= require('multer');
 var storage = multer.diskStorage({
