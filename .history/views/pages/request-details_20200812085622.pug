@@ -1,0 +1,19 @@
+extends ../partials/layout
+
+block content
+       
+    div(class="container")
+        div(class="row")
+            div(class="col-md-8 col-lg-8")
+                 img(src=""+request.photoUrl)
+            div(class="col-4 col-md-4 col-lg-8")
+                h3 Detalhes da requisição
+                ul
+                    li=request.name
+                    li=request.address
+                    li=request.contact
+                a(class=" btn btn-primary" href="/dashboard/"+request.id+"/response") Ver respostas
+            
+               
+        
+       
