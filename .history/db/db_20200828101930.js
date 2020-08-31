@@ -125,19 +125,6 @@ let findUserByEmail= (req, res)=>{
 
 }
 
-let addUser=(req, res)=>{
-    let userData=[req.body.email, req.body.name, req.body.userName, req.body.photoUrl, req.body.type, req.body.email]
-    db.one('INSERT INTO users(email, name, username, "photoUrl", type, password) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING email, name, username, "photoUrl", type', userData)
-    .then(user=>{
-        res.json(user)
-    })
-    .catch(error=>{
-        res.json({message:error});
-        
-    })
-
-}
-
 let getUserWithUsername= function(username, password, cb){
     db.one('SELECT * FROM users WHERE username= $1 and password=$2', [username, password])
     .then(user=>{
@@ -172,7 +159,6 @@ module.exports={
     getUserWithUsername: getUserWithUsername,
     findUserById:findUserById,
     findUserByEmail: findUserByEmail,
-    addUser:addUser,
     db:db
 }
 

@@ -115,25 +115,12 @@ let findUserById=function(id, cb){
 
 let findUserByEmail= (req, res)=>{
 
-    db.one('SELECT email, name, id, "photoUrl", username FROM users WHERE email=$1', req.params.email)
+    db.one('SELECT email, name, id, photoUrl, "userName" FROM users WHERE email=$1', req.params.email)
     .then(user=>{
         res.status(200).json(user); 
     })
     .catch(error=>{
         res.json({message:error})
-    })
-
-}
-
-let addUser=(req, res)=>{
-    let userData=[req.body.email, req.body.name, req.body.userName, req.body.photoUrl, req.body.type, req.body.email]
-    db.one('INSERT INTO users(email, name, username, "photoUrl", type, password) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING email, name, username, "photoUrl", type', userData)
-    .then(user=>{
-        res.json(user)
-    })
-    .catch(error=>{
-        res.json({message:error});
-        
     })
 
 }
@@ -172,7 +159,6 @@ module.exports={
     getUserWithUsername: getUserWithUsername,
     findUserById:findUserById,
     findUserByEmail: findUserByEmail,
-    addUser:addUser,
     db:db
 }
 
