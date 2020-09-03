@@ -115,11 +115,14 @@ let findUserById=function(id, cb){
 
 let findUserByEmail= (req, res)=>{
 
-    db.one('SELECT email, name, id, "photoUrl", username FROM users WHERE email=$1', req.params.email)
+    db.oneOrNone('SELECT email, name, id, "photoUrl", username FROM users WHERE email=$1', req.params.email)
     .then(user=>{
+    
+        console.log(user);
         res.status(200).json(user); 
     })
     .catch(error=>{
+       
         res.json({message:error})
     })
 

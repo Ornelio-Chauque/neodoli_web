@@ -1,11 +1,25 @@
 const express = require('express');
 const bodyParse= require('body-parser');
-// When making a push to the server for production, comment the line that import the dotEnv library
-const dotEnv= require("dotenv").config();
-const  multer= require('multer');
 const path = require('path');
-let form= multer({dest:path.resolve(__dirname, 'public')});
 const PORT = process.env.PORT || 5000;
+
+// When making a push to the server for production, comment the line that import the dotEnv library
+
+//const dotEnv= require("dotenv").config();
+const  multer= require('multer');
+var cloudinary = require('cloudinary').v2;
+const {CloudinaryStorage} = require('multer-storage-cloudinary');
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'prescriptions',
+    width: 500,
+    crop:'limit'   
+  },
+});
+var form = multer({ storage: storage })
+
+
 const db= require("./db/db");
 const passport= require('passport');
 const LocalStrategy= require('passport-local').Strategy;
@@ -62,7 +76,7 @@ express()
   .use(passport.initialize())
   .use(passport.session())
   .use(flash())
-  .use(express.static(path.resolve(__dirname, 'public')))
+  .use('/public/uploads/', express.static(path.resolve(__dirname, 'public/uploads')))
   .set('views', path.resolve(__dirname, 'views'))
   .set('view engine', 'pug')
   .get('/', (req, res) => res.render('pages/index', {title:"Adicionar Farmácia"}))
@@ -91,10 +105,22 @@ express()
   })
 
   .get('/dashboard', ensureLogin.ensureLoggedIn('/login'),(req, res)=>{
-    db.db.any("SELECT * FROM  prescriptions")
+    db.db.any("SELECT * FROM  prescriptions WHERE status=0")
     .then((data)=>{
       console.log(data);
       res.render('pages/dashboard', {requests:data, title:"Dashboard", user: req.user});
+    })
+    .catch( error=>{
+      res.render('pages/error')
+    });
+    
+  })
+
+  .get('/dashboard/all', ensureLogin.ensureLoggedIn('/login'),(req, res)=>{
+    db.db.any("SELECT * FROM  prescriptions")
+    .then((data)=>{
+      console.log(data);
+      res.render('pages/dashboard-all', {requests:data, title:"Dashboard", user: req.user});
     })
     .catch( error=>{
       res.render('pages/error')
@@ -197,15 +223,15 @@ express()
   })
 
   .get('/dashboard/:id/terminate', ensureLogin.ensureLoggedIn('/login'), (req, res)=>{
-    db.db.none('UPDATE prescription SET status=1 WHERE id=$1', req.params.id)
+    db.db.none('UPDATE prescriptions SET status=1 WHERE id=$1', req.params.id)
     .then(data=>{
-      res.redirect("/dashboard/"+req.params.id+"/response/"+req.params.responseId+"/");
+      res.redirect("/dashboard/");
     })
     .catch(error=>{
       res.redirect(req.session.returnTo)
     })
 
-  }))
+  })
 
  
 
@@ -238,24 +264,20 @@ express()
     //let jSon=[{"id":"duyuyshghs","pharmacy":"Cristal", "address":"Maquinino, Beira"}, {"id":"duyuyshghs","pharmacy":"Maria Luisa", "address":"Macuti, Beira"}, {"id":"duyuyshghs","pharmacy":"Chingussura", "address":"Maquinino, Beira"}, {"id":"duyuyshghs","pharmacy":"Macurungo", "address":"Macurungo, Beira"}, {"id":"duyuyshghs","pharmacy":"Pontagea", "address":"Pontagea, Beira"}]
     db.getPrescriptionResponses(req, res, req.params.prescriptionId);
     //res.status(200).json(jSon);
-    
   })
 
   .get("/api/v1/prescription/:prescriptionId/response/:responseId", (req, res)=> {
-
     //let jSon={"id":"duyuyshghs","pharmacy": "Cristal", "address": "Maquino, Beira", "totalAmount":"500","medicines":[{"name":"Paracetamol", "available": true, "from": "Portugal"}, {"name":"Cloroquina", "available": true, "from": "India"}, {"name":"Antigripe", "available": false, "from": "Portugal"}]};
     db.getPrescriptionResponse(req, res,req.params.responseId )
     //res.status(200).json(jSon);
+  })
 
+  .get('/api/v1/user/:email', (req, res)=>{
+    db.findUserByEmail(req, res);
+  })
+
+  .post('/api/v1/user', bodyParse.json(), (req, res)=>{
+      db.addUser(req,res);
   })
   
-
-
-
-
-
-
-
-
-
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))

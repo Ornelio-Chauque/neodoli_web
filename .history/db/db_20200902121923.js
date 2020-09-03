@@ -6,6 +6,9 @@ let insertPrescription=function(req, res){
     let randomCode= crypto.randomBytes(10).toString('hex');
     let prescriptionData=[req.body.name, req.body.address, req.body.contact, req.file.path, randomCode];
     console.log(req.file);
+    console.log(req.file.filename);
+    console.log(req.file.path);
+    console.log(req.file.size);
     console.log(req.body.address);
     console.log(req.body.contact);
     console.log(prescriptionData);
@@ -97,17 +100,55 @@ let addPrescriptionResponse=(prescriptionResponse)=>{
 }
 
 
-// Users database operations
+//Auth Users database operations
 
-let getUserWithUsername= function(username, password){
+let findUserById=function(id, cb){
+    db.one('SELECT * FROM users WHERE id=$1', id)
+    .then(user=>{
+        return cb(null, user)
+    })
+    .catch(error=>{
+        cb(error)
+    });
+
+}
+
+let findUserByEmail= (req, res)=>{
+
+    db.any('SELECT email, name, id, "photoUrl", username FROM users WHERE email=$1', req.params.email)
+    .then(user=>{
+        console.log(user)
+        user
+        res.status(200).json(user); 
+    })
+    .catch(error=>{
+        res.json({message:error})
+    })
+
+}
+
+let addUser=(req, res)=>{
+    let userData=[req.body.email, req.body.name, req.body.userName, req.body.photoUrl, req.body.type, req.body.email]
+    db.one('INSERT INTO users(email, name, username, "photoUrl", type, password) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING email, name, username, "photoUrl", type', userData)
+    .then(user=>{
+        res.json(user)
+    })
+    .catch(error=>{
+        res.json({message:error});
+        
+    })
+
+}
+
+let getUserWithUsername= function(username, password, cb){
     db.one('SELECT * FROM users WHERE username= $1 and password=$2', [username, password])
     .then(user=>{
-        onsole.log(user);
-        return user;
+        console.log(user);
+        return cb(null, user);
     })
     .catch(error=>{
         console.log(error);
-        return null;
+        return cb(null, false);
     })
 
 }
@@ -131,6 +172,9 @@ module.exports={
     getPrescriptionResponse: getPrescriptionResponse,
     getUserWithEmail: getUserWithEmail,
     getUserWithUsername: getUserWithUsername,
+    findUserById:findUserById,
+    findUserByEmail: findUserByEmail,
+    addUser:addUser,
     db:db
 }
 
