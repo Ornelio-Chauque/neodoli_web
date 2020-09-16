@@ -4,7 +4,7 @@ const crypto= require("crypto");
 
 let insertPrescription=function(req, res){
     let randomCode= crypto.randomBytes(10).toString('hex');
-    let prescriptionData=[req.body.name, req.body.address, req.body.contact, req.file.path, randomCode];
+    let prescriptionData=[req.body.name, req.body.address, req.body.contact, req.file.path, randomCode, req.params.id];
     console.log(req.file);
     console.log(req.file.filename);
     console.log(req.file.path);
@@ -13,7 +13,7 @@ let insertPrescription=function(req, res){
     console.log(req.body.contact);
     console.log(prescriptionData);
 
-    db.none('INSERT INTO prescriptions(name, address, contact, "photoUrl", code) VALUES($1, $2, $3, $4, $5)', prescriptionData)
+    db.none('INSERT INTO prescriptions(name, address, contact, "photoUrl", code, "userId") VALUES($1, $2, $3, $4, $5, $6)', prescriptionData)
     .then(()=>{
         res.status(200).json({message:"ok"});
     })
@@ -25,7 +25,7 @@ let insertPrescription=function(req, res){
 
 let getPrescriptions= (req, res)=>{
     let dataResult;
-    db.any("SELECT * FROM prescriptions")
+    db.any('SELECT * FROM prescriptions WHERE "userId"=$1', req.params.id)
     .then((data)=>{
         console.log(data);
         res.status(200).json(data);
@@ -37,9 +37,19 @@ let getPrescriptions= (req, res)=>{
    
 }
 
+let getRecentActivity= (req, res)=>{
+    db.any('SELECT * FROM prescriptions WHERE "userId"=$1 ORDER BY id DESC LIMIT 5', req.params.id)
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(error=>{
+        res.json(error);
+    })
+}
+
 let getPrescription=(req, res, id)=>{
 
-    db.one("SELECT * FROM prescriptions WHERE id=$1",[id])
+    db.one('SELECT * FROM prescriptions WHERE id=$1 AND "userId"=$2',[id, req.params.id])
     .then((data)=>{
         console.log(data);
         res.status(200).json(data);
@@ -113,6 +123,34 @@ let findUserById=function(id, cb){
 
 }
 
+let findUserByEmail= (req, res)=>{
+
+    db.oneOrNone('SELECT email, name, id, "photoUrl", username FROM users WHERE email=$1', req.params.email)
+    .then(user=>{
+    
+        console.log(user);
+        res.status(200).json(user); 
+    })
+    .catch(error=>{
+       
+        res.json({message:error})
+    })
+
+}
+
+let addUser=(req, res)=>{
+    let userData=[req.body.email, req.body.name, req.body.userName, req.body.photoUrl, req.body.type, req.body.email]
+    db.one('INSERT INTO users(email, name, username, "photoUrl", type, password) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING email, name, username, "photoUrl", type', userData)
+    .then(user=>{
+        res.json(user)
+    })
+    .catch(error=>{
+        res.json({message:error});
+        
+    })
+
+}
+
 let getUserWithUsername= function(username, password, cb){
     db.one('SELECT * FROM users WHERE username= $1 and password=$2', [username, password])
     .then(user=>{
@@ -146,6 +184,9 @@ module.exports={
     getUserWithEmail: getUserWithEmail,
     getUserWithUsername: getUserWithUsername,
     findUserById:findUserById,
+    findUserByEmail: findUserByEmail,
+    addUser:addUser,
+    getRecentActivity: getRecentActivity,
     db:db
 }
 

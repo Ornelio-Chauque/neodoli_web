@@ -253,6 +253,11 @@ express()
     db.getPrescriptions(req, res);
   })
 
+  .get("/api/v1/user/:id/recent", (req, res)=>{
+    //let Json=[{"date":"23, junho, 2020", "id":"ducbdu859dnnx"}, {"date":"10, Maio, 2020", "id":"jd87ennd4ff"},{"date":"25, junho, 2020", "id":"7shydjkd90984"}];
+    db.getRecentActivity(req, res);
+  })
+
   .get("/api/v1/user/:id/prescription/:prescriptionId", (req, res)=>{
 
     //let jSon={"address": "1810, Beira, Mozambique", "userContact":"842519199", "photoUrl":"/public/upload/photo.jpg"}

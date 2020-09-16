@@ -38,7 +38,7 @@ let getPrescriptions= (req, res)=>{
 }
 
 let getRecentActivity= (req, res)=>{
-    db.any('SELECT * FROM prescriptions WHERE "userId"=$1 ORDER BY id DESC LIMIT 5', req.params.id)
+    db.any("SELECT * FROM prescriptions ORDER BY id DESC LIMIT 6")
     .then(data=>{
         res.status(200).json(data);
     })
